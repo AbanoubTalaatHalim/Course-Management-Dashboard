@@ -1,0 +1,158 @@
+.app-layout {
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #111827;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.2rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.brand {
+  align-items: center;
+  display: flex;
+  gap: 0.8rem;
+  text-decoration: none;
+}
+
+.brand-mark {
+  align-items: center;
+  background: #14b8a6;
+  border-radius: 8px;
+  color: #062c28;
+  display: inline-flex;
+  font-weight: 900;
+  height: 2.75rem;
+  justify-content: center;
+  width: 2.75rem;
+}
+
+.brand strong,
+.brand small {
+  display: block;
+}
+
+.brand small {
+  color: #aab4c3;
+  font-size: 0.78rem;
+  margin-top: 0.1rem;
+}
+
+nav {
+  display: grid;
+  gap: 0.35rem;
+}
+
+nav a {
+  align-items: center;
+  border-radius: 8px;
+  color: #cbd5e1;
+  display: flex;
+  gap: 0.7rem;
+  min-height: 2.7rem;
+  padding: 0.65rem 0.8rem;
+  text-decoration: none;
+}
+
+nav a span {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  display: inline-flex;
+  height: 1.7rem;
+  justify-content: center;
+  width: 1.7rem;
+}
+
+nav a.active,
+nav a:hover {
+  background: rgba(20, 184, 166, 0.14);
+  color: #ffffff;
+}
+
+.sidebar-note {
+  color: #aab4c3;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: auto 0 0;
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  align-items: center;
+  background: rgba(247, 248, 251, 0.9);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  min-height: 4.5rem;
+  padding: 0.9rem 1.5rem;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(12px);
+  z-index: 3;
+}
+
+.topbar strong,
+.topbar span {
+  display: block;
+}
+
+.topbar span {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin-top: 0.12rem;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  color: var(--muted);
+  font-size: 0.82rem;
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .app-layout {
+    display: block;
+  }
+
+  .sidebar {
+    height: auto;
+    position: static;
+  }
+
+  nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sidebar-note {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    align-items: flex-start;
+    display: grid;
+  }
+
+  nav {
+    grid-template-columns: 1fr;
+  }
+}

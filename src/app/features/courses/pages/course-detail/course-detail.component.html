@@ -1,0 +1,49 @@
+<section class="page-shell">
+  @if (course$ | async; as course) {
+    <div class="page-title">
+      <div>
+        <a class="back-link" routerLink="/courses">Back to courses</a>
+        <h1>{{ course.courseName }}</h1>
+        <p>{{ course.description }}</p>
+      </div>
+      <a class="button primary" [routerLink]="['/courses', course.id, 'edit']">Edit Course</a>
+    </div>
+
+    <section class="detail-grid">
+      <article class="summary-panel">
+        <span class="status-pill" [ngClass]="statusClass(course.status)">{{ course.status }}</span>
+        <dl>
+          <div>
+            <dt>Instructor</dt>
+            <dd>{{ course.instructorName }}</dd>
+          </div>
+          <div>
+            <dt>Category</dt>
+            <dd>{{ course.category }}</dd>
+          </div>
+          <div>
+            <dt>Price</dt>
+            <dd>{{ course.price }}</dd>
+          </div>
+          <div>
+            <dt>Created date</dt>
+            <dd>{{ course.createdDate | date: 'mediumDate' }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="stats-panel">
+        <div>
+          <span>Duration</span>
+          <strong>{{ course.duration }}h</strong>
+        </div>
+      </article>
+    </section>
+  } @else {
+    <div class="empty-state">
+      <h1>Course not found</h1>
+      <p>The selected course may have been deleted or moved.</p>
+      <a class="button primary" routerLink="/courses">Return to Courses</a>
+    </div>
+  }
+</section>

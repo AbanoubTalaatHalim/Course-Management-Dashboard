@@ -1,0 +1,54 @@
+.back-link {
+  color: var(--primary-dark);
+  display: inline-flex;
+  font-weight: 800;
+  margin-bottom: 0.65rem;
+  text-decoration: none;
+}
+
+.course-form {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.2rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.field span {
+  color: #344054;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.helper-text {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.form-actions {
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 0.8rem;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+}
+
+@media (max-width: 720px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    display: grid;
+  }
+}

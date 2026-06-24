@@ -1,0 +1,81 @@
+<section class="page-shell">
+  <div class="page-title">
+    <div>
+      <h1>Courses</h1>
+      <p>Manage course records, status, pricing, duration, and instructor details.</p>
+    </div>
+    <a class="button primary" routerLink="/courses/new">Add Course</a>
+  </div>
+
+  @if (vm$ | async; as vm) {
+    @if (isLoading) {
+      <section class="skeleton-panel" aria-label="Loading courses">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </section>
+    } @else {
+      <section class="metrics" aria-label="Course metrics">
+        <article>
+          <span>Total</span>
+          <strong>{{ vm.totalCourses }}</strong>
+        </article>
+        <article>
+          <span>Active</span>
+          <strong>{{ vm.activeCount }}</strong>
+        </article>
+        <article>
+          <span>Drafts</span>
+          <strong>{{ vm.draftCount }}</strong>
+        </article>
+      </section>
+
+      <section class="toolbar" aria-label="Course filters">
+        <label class="field search-field">
+          <span>Search by name</span>
+          <input class="control" type="search" placeholder="Search courses" [formControl]="searchControl" (input)="resetPage()">
+        </label>
+
+        <label class="field">
+          <span>Status</span>
+          <select class="control" [formControl]="statusControl" (change)="resetPage()">
+            @for (status of statusOptions; track status) {
+              <option [ngValue]="status">{{ status }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Rows</span>
+          <select class="control" [formControl]="pageSizeControl" (change)="onPageSizeChange()">
+            @for (size of pageSizes; track size) {
+              <option [ngValue]="size">{{ size }}</option>
+            }
+          </select>
+        </label>
+      </section>
+
+      <app-data-table
+        [rows]="vm.rows"
+        [columns]="columns"
+        [sortKey]="vm.sort.key"
+        [sortDirection]="vm.sort.direction"
+        emptyMessage="No courses match the current filters."
+        (sortChange)="onSort($event)"
+        (view)="viewCourse($event)"
+        (edit)="editCourse($event)"
+        (remove)="deleteCourse($event)"
+      ></app-data-table>
+
+      <section class="pagination" aria-label="Pagination">
+        <span>Showing {{ vm.rows.length }} of {{ vm.total }} courses</span>
+        <div>
+          <button type="button" class="button secondary" [disabled]="vm.page === 1" (click)="goToPage(vm.page - 1)">Previous</button>
+          <strong>Page {{ vm.page }} of {{ vm.totalPages }}</strong>
+          <button type="button" class="button secondary" [disabled]="vm.page === vm.totalPages" (click)="goToPage(vm.page + 1)">Next</button>
+        </div>
+      </section>
+    }
+  }
+</section>

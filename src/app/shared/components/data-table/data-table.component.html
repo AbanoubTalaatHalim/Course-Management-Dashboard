@@ -1,0 +1,55 @@
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        @for (column of columns; track column.key) {
+          <th [class.align-right]="column.align === 'right'">
+            <button type="button" class="sort-button" [disabled]="!column.sortable" (click)="onSort(column)">
+              <span>{{ column.label }}</span>
+              @if (column.sortable) {
+                <span class="sort-indicator" aria-hidden="true">
+                  @if (sortKey === column.key) {
+                    {{ sortDirection === 'asc' ? 'Asc' : 'Desc' }}
+                  } @else {
+                    Sort
+                  }
+                </span>
+              }
+            </button>
+          </th>
+        }
+        <th class="actions-col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of rows; track row['id']) {
+        <tr>
+          @for (column of columns; track column.key) {
+            <td [class.align-right]="column.align === 'right'">
+              @if (column.key === 'status') {
+                <span class="status-pill" [ngClass]="statusClass(valueFor(row, column.key))">
+                  {{ valueFor(row, column.key) }}
+                </span>
+              } @else {
+                {{ valueFor(row, column.key) }}
+              }
+            </td>
+          }
+          <td>
+            <div class="row-actions">
+              <button type="button" class="icon-button" title="View course" aria-label="View course" (click)="view.emit(row)">View</button>
+              <button type="button" class="icon-button" title="Edit course" aria-label="Edit course" (click)="edit.emit(row)">Edit</button>
+              <button type="button" class="icon-button danger" title="Delete course" aria-label="Delete course" (click)="remove.emit(row)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td class="empty-cell" [attr.colspan]="columns.length + 1">
+            {{ emptyMessage }}
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
